@@ -1,0 +1,7 @@
+[Herond Adblock 1.0]
+! Herond List filter
+! Copyright: Herond
+! Homepage: https://herond.org/
+! License: GPLv3 (https://github.com/herondlabs/herond-filter-list/blob/main/LICENSE)
+! ---------- Herond Blocking Rules ----------
+vnexpress.net##.wrap-hd-adblock

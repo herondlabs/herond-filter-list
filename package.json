@@ -1,0 +1,15 @@
+{
+  "name": "herond-filter-list",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "commander": "^11.1.0",
+    "fs-extra": "^11.1.1"
+  },
+  "scripts": {
+    "gen_filter_file": "node scripts/commands.js generateFilterList",
+    "gen_manifest": "node scripts/commands.js generateManifest",
+    "gen_crx": "node scripts/commands.js generateCrx",
+    "gen_herond_list": "node scripts/commands.js generateHerondListComponent"
+  }
+}
