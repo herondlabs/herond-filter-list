@@ -1,6 +1,8 @@
 import childProcess from 'child_process'
 import fs from 'fs'
 
+import { generate256sha } from './generate256sha.js'
+
 export function generateCrxWithArgs(executable_herond, extension_dir, private_key, publisher_key) {
   try {
     if (!fs.existsSync(executable_herond)) {
@@ -25,7 +27,8 @@ export function generateCrxWithArgs(executable_herond, extension_dir, private_ke
       `--brave-extension-publisher-key="${publisher_key}"`]
     childProcess.execSync(`"${executable_herond}" ${args.join(' ')}`)
     const crxOutPath = extension_dir + '.crx'
-    console.log("THE CRX FILE IS CREATED. PATH =", crxOutPath)
+    const hash = generate256sha(crxOutPath)
+    console.log("THE CRX FILE IS CREATED. PATH = %s, hash = %s", crxOutPath, hash)
 
   } catch (e) {
     console.error(`Error: ${e}`)
