@@ -1,4 +1,5 @@
 [submodule "abpvn"]
-	path = abpvn
-	url = git@github.com:abpvn/abpvn.git
-	branch = master
+    path = abpvn
+    url = git@github.com:abpvn/abpvn.git
+    branch = master
+    ignore = all
