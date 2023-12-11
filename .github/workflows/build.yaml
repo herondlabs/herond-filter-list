@@ -1,0 +1,20 @@
+name: "Build browser component"
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: Version
+        required: true
+        default: 1.0.1
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+      - run: npm install
