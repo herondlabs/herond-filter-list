@@ -15,6 +15,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Check extension version
+        if: (aws s3api head-object --bucket "herond-ext-updater-prod" --key "release/dlibgjfecknlggedcgaabhmefdkfdkgp/extension_1_0_1.crx" >/dev/null 2>1; echo $?) == 0
+        run: exit 1
       - name: Use Node.js
         uses: actions/setup-node@v4
       - name: Install dependencies
@@ -34,8 +37,6 @@ jobs:
           EXTENSION_KEY: ${{ secrets.HEROND_FILTER_LIST_KEY }}
         run: echo "$EXTENSION_KEY" | base64 --decode > herondlist.pem
         shell: bash
-      - name: Check output
-        run: dir
       - name: Build Herond List
         run: npm run gen_herond_list -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem"
       - name: Check output
