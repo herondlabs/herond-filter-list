@@ -23,7 +23,7 @@ jobs:
         run: curl -L -o browser.zip ${{ vars.BROWSER_ZIP_FILE_URL }}
         shell: bash
       - name: Unzip tool
-        run: 7z x browser.zip
+        run: 7z e browser.zip -obrowser
       - name: Prepare publisher key
         env: 
           PUBLISHER_KEY: ${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}
@@ -37,6 +37,6 @@ jobs:
       - name: Check output
         run: dir
       - name: Build Herond List
-        run: npm run gen_herond_list -- --executable_herond="${{ github.workspace }}\Herond_Browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem"
+        run: npm run gen_herond_list -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem"
       - name: Check output
         run: cd build && dir
