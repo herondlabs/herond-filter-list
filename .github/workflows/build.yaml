@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Download browser tool
-        run: curl -o browser.zip ${{ vars.BROWSER_ZIP_FILE_URL }}
+        run: curl -L -o browser.zip ${{ vars.BROWSER_ZIP_FILE_URL }}
         shell: bash
       - name: Unzip tool
         run: 7z x browser.zip
