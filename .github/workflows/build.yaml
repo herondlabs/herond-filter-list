@@ -25,9 +25,13 @@ jobs:
       - name: Unzip tool
         run: 7z x browser.zip
       - name: Prepare publisher key
-        run: echo "${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}" | base64 --decode > publisher.pem
+        env: 
+          PUBLISHER_KEY: ${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}
+        run: echo "$PUBLISHER_KEY" | base64 --decode > publisher.pem
       - name: Prepare extension key
-        run: echo "${{ secrets.HEROND_FILTER_LIST_KEY }}" | base64 --decode > herondlist.pem
+        env: 
+          EXTENSION_KEY: ${{ secrets.HEROND_FILTER_LIST_KEY }}
+        run: echo "$EXTENSION_KEY" | base64 --decode > herondlist.pem
       - name: Build Herond List
         run: npm run gen_herond_list -- --executable_herond="HerondBrowser/herond.exe" --private_key="herondlist.pem" --publisher_key="publisher.pem"
       - name: Check output
