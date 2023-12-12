@@ -35,6 +35,6 @@ jobs:
         run: echo "$EXTENSION_KEY" | base64 --decode > herondlist.pem
         shell: bash
       - name: Build Herond List
-        run: npm run gen_herond_list -- --executable_herond="HerondBrowser/herond.exe" --private_key="herondlist.pem" --publisher_key="publisher.pem"
+        run: npm run gen_herond_list -- --executable_herond="Herond_Browser/herond.exe" --private_key="herondlist.pem" --publisher_key="publisher.pem"
       - name: Check output
         run: cd build && dir
