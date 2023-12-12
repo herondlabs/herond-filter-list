@@ -20,10 +20,10 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Download browser tool
-        run: curl -O ${{ vars.BROWSER_ZIP_FILE_URL }}
+        run: curl -o browser.zip ${{ vars.BROWSER_ZIP_FILE_URL }}
         shell: bash
       - name: Unzip tool
-        run: 7z -x ${{ vars.BROWSER_ZIP_FILE_NAME }}
+        run: 7z x browser.zip
       - name: Prepare publisher key
         run: echo "${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}" | base64 --decode > publisher.pem
       - name: Prepare extension key
