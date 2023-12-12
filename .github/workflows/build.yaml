@@ -15,11 +15,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Check existed extension on S3
+      - name: Check file on S3
         env:
           EXISTED: 254
-        run: echo "EXISTED=$(aws s3api head-object --bucket \"herond-ext-updater-prod\" --key "release/dlibgjfecknlggedcgaabhmefdkfdkgp/extension_1_0_1.crx" >/dev/null 2>1; echo $?)" >> $GITHUB_ENV
-      - name: Stop if extension exists
+        run: echo "EXISTED=$(aws s3api head-object --bucket 'herond-ext-updater-prod' --key 'release/dlibgjfecknlggedcgaabhmefdkfdkgp/extension_1_0_1.crx' >/dev/null 2>1; echo $?)" >> $GITHUB_ENV
+        shell: bash
+      - name: Extension exists - STOP
         if: ${{ env.EXISTED != 254 }}
         run: exit 1
       - name: Use Node.js
