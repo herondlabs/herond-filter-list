@@ -15,8 +15,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Check extension version
-        if: (aws s3api head-object --bucket "herond-ext-updater-prod" --key "release/dlibgjfecknlggedcgaabhmefdkfdkgp/extension_1_0_1.crx" >/dev/null 2>1; echo $?) == 0
+      - name: Check existed extension on S3
+        run: EXISTED=$(aws s3api head-object --bucket "herond-ext-updater-prod" --key "release/dlibgjfecknlggedcgaabhmefdkfdkgp/extension_1_0_1.crx" >/dev/null 2>1; echo $?)
+      - name: Stop if extension exists
+        if: $EXISTED != 254
         run: exit 1
       - name: Use Node.js
         uses: actions/setup-node@v4
