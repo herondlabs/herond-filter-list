@@ -17,4 +17,18 @@ jobs:
           submodules: recursive
       - name: Use Node.js
         uses: actions/setup-node@v4
-      - run: npm install
+      - name: Install dependencies
+        run: npm install
+      - name: Download browser tool
+        run: curl -O ${{ vars.BROWSER_ZIP_FILE_URL }}
+        shell: bash
+      - name: Unzip tool
+        run: 7z -x ${{ vars.BROWSER_ZIP_FILE_NAME }}
+      - name: Prepare publisher key
+        run: echo "${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}" | base64 --decode > publisher.pem
+      - name: Prepare extension key
+        run: echo "${{ secrets.HEROND_FILTER_LIST_KEY }}" | base64 --decode > herondlist.pem
+      - name: Build Herond List
+        run: npm run gen_herond_list -- --executable_herond="HerondBrowser/herond.exe" --private_key="herondlist.pem" --publisher_key="publisher.pem"
+      - name: Check output
+        run: cd build && dir
