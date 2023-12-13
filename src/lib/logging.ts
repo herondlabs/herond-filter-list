@@ -1,4 +1,4 @@
-import os from 'os'
+import * as os from 'os'
 import chalk from 'chalk'
 import logUpdate from 'log-update'
 import { URL } from 'url'

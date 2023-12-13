@@ -1,5 +1,5 @@
-import fs from'fs'
-import Log from './logging'
+import * as fs from'fs'
+import Log from './logging.ts'
 import { spawnSync, SpawnSyncOptions } from 'child_process'
 
 let npmCommand = 'npm'
@@ -9,25 +9,6 @@ if (process.platform === 'win32') {
 
 interface RunOptions extends SpawnSyncOptions {
   continueOnFail?: boolean
-}
-
-function padStr(inputString: string, minLength: number, padLeft = false) {
-  if (typeof inputString !== 'string') {
-    throw new Error('Input must be a string');
-  }
-
-  if (inputString.length >= minLength) {
-    return inputString; // No padding needed if the string is already long enough.
-  }
-
-  const spacesToAdd = minLength - inputString.length;
-  const padding = ' '.repeat(spacesToAdd);
-
-  if (padLeft) {
-    return padding + inputString; // Pad on the left.
-  } else {
-    return inputString + padding; // Pad on the right (default behavior).
-  }
 }
 
 const run = (cmd: string, args: ReadonlyArray<string> = [], options?: RunOptions) => {
@@ -81,7 +62,6 @@ const getNPMConfig = (pathToPackageJson: string, path: ReadonlyArray<string>) =>
 }
 
 export default {
-  padStr,
   run,
   runGit,
   runNpm,

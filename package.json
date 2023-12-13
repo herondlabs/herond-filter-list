@@ -3,15 +3,25 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
+    "@types/node": "^20.10.4",
+    "chalk": "^5.3.0",
     "commander": "^11.1.0",
     "crypto": "^1.0.1",
-    "fs-extra": "^11.1.1"
+    "fs-extra": "^11.2.0",
+    "log-update": "^6.0.0",
+    "os": "^0.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "scripts": {
-    "gen_filter_file": "node src/commands.js generateFilterList",
-    "gen_manifest": "node src/commands.js generateManifest",
-    "gen_crx": "node src/commands.js generateCrx",
-    "build": "node src/commands.js buildHerondList",
-    "action:check_version": "node src/commands.js checkVersion"
+    "gen_filter_file": "ts-node --esm ./src/commands.ts generateFilterList",
+    "gen_manifest": "ts-node --esm ./src/commands.ts generateManifest",
+    "gen_crx": "ts-node --esm ./src/commands.ts generateCrx",
+    "build": "ts-node --esm ./src/commands.ts buildHerondList",
+    "actions:check_version": "ts-node --esm ./src/commands.ts checkVersion",
+    "actions:upload": "ts-node --esm ./src/commands.ts upload"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4"
   }
 }
