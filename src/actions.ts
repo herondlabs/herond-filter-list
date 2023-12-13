@@ -32,7 +32,15 @@ async function upload(options: any = {}) {
   processUtils.run('aws', ['s3', 'cp', filePath, s3Key])
 }
 
+async function updateDb(options:any = {}) {
+  Log.progress(`Update database`)
+
+  const s3Key = `s3://${s3Bucket}/${s3Path}/${herondListComponentId}/extension_${options.version.replace(/\./g, '_')}.crx`
+  //aws dynamodb update-item --table-name=herond-extensions-prod --key='{"ID": {"S": "test123"}}' --update-expression='SET Version = :v,Title = :t' --expression-attribute-values='{":v": {"S": "1.0.2"}, ":t": {"S": "test"}}'
+}
+
 export default {
   checkVersion,
-  upload
+  upload,
+  updateDb
 }

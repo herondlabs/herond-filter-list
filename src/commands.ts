@@ -43,4 +43,9 @@ program
     .action(actions.upload)
 
 program
+    .command('updateDb')
+    .requiredOption('-v, --version <target-version>', 'version to check')
+    .action(actions.updateDb)
+
+program
   .parse(process.argv)
