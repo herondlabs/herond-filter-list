@@ -3,6 +3,7 @@ import path from 'path'
 import {herondListName, herondListPublickey} from "./constants.ts";
 import childProcess from 'child_process'
 import Log from './lib/logging.ts'
+import * as process from "process";
 
 async function buildHerondList(options: any = {}) {
   try {
@@ -13,7 +14,7 @@ async function buildHerondList(options: any = {}) {
     await generateManifestFiles({output_path: outputPath, version: options.version})
     await packExtension({
       executable_herond: options.executable_herond,
-      extension_dir: outputPath,
+      extension_dir: path.join(process.cwd(), outputPath),
       private_key: options.private_key,
       publisher_key: options.publisher_key})
 
