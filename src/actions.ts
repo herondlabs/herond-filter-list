@@ -7,10 +7,19 @@ async function checkVersion(options: any = {}) {
   Log.progress(`Check extension version`)
 
   const s3Key = `${s3Path}/${herondListComponentId}/extension_${options.version.replace(/\./g, '_')}.crx`
-  const rs = processUtils.run('aws', ['s3api', 'head-object', '--bucket', s3Bucket, '--key', s3Key], {continueOnFail: true})
-  if (rs.status == 0) {
-    Log.error(`Extension version ${options.version} is already exist.`)
-    process.exit(1)
+
+  if (options.type == '0') {
+    const rs = processUtils.run('aws', ['s3api', 'head-object', '--bucket', s3Bucket, '--key', s3Key], {continueOnFail: true})
+    if (rs.status == 0) {
+      Log.error(`Extension version ${options.version} is already exist.`)
+      process.exit(1)
+    }
+  } else if (options.type == 1){
+    const rs2 = processUtils.run('aws', ['s3', 'ls', `s3://${s3Bucket}/${s3Key}`], {continueOnFail: true})
+    if (rs2.status == 0) {
+      Log.error(`Extension version ${options.version} is already exist.`)
+      process.exit(1)
+    }
   }
 }
 

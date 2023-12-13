@@ -24,7 +24,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
-        run: npm run actions:check_version -- --version="${{ inputs.version }}"
+        run: npm run actions:check_version -- --version="${{ inputs.version }}" --type=1
       - name: Download browser tool
         run: curl -L -o browser.zip ${{ vars.BROWSER_ZIP_FILE_URL }}
         shell: bash

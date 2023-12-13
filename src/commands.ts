@@ -34,6 +34,7 @@ program
 program
   .command('checkVersion')
   .requiredOption('-v, --version <target-version>', 'version to check')
+  .option('-t, --type <selected-type>', '', '0')
   .action(actions.checkVersion)
 
 program
