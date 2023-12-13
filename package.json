@@ -8,10 +8,10 @@
     "fs-extra": "^11.1.1"
   },
   "scripts": {
-    "gen_filter_file": "node scripts/commands.js generateFilterList",
-    "gen_manifest": "node scripts/commands.js generateManifest",
-    "gen_crx": "node scripts/commands.js generateCrx",
-    "gen_hash": "node scripts/commands.js generateHash",
-    "gen_herond_list": "node scripts/commands.js generateHerondListComponent"
+    "gen_filter_file": "node src/commands.js generateFilterList",
+    "gen_manifest": "node src/commands.js generateManifest",
+    "gen_crx": "node src/commands.js generateCrx",
+    "build": "node src/commands.js buildHerondList",
+    "action:check_version": "node src/commands.js checkVersion"
   }
 }
