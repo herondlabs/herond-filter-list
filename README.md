@@ -12,20 +12,20 @@ Herond Filter List - Extends ABPVN
 ## Create a component and pack it into a CRX file
 1. Update rules in `filter/herond_list.txt` file
 2. Pull the latest code of the submodule: `git submodule update --recursive --remote`
-3. Update version in `VERSION` file
-4. Run `npm install` to download necessary dependencies
-5. Run command `npm run gen_herond_list -- --executable_herond=<executable-herond-file> --private_key=<private-key> --publisher_key=<publisher-key>`
+3. Run `npm install` to download necessary dependencies
+4. Run command `npm run build -- --executable_herond=<executable-herond-file> --private_key=<private-key> --publisher_key=<publisher-key> --version=<version>`
 
 where:
 - `executable-herond-file` is the full path to the Herond web browser binary, used for packing the CRX files, default on Windows is "C:\Program Files\HerondLabs\Herond-Browser\Application\herond.exe"
 - `private-key` is the path of the associated private key of extension
 - `publisher-key` is the private key of Herond to sign for all extensions
+- `version` is the extension version 
 
 NOTE: Use the absolute path
 
 Example: 
 
-`npm run gen_herond_list -- --executable_herond="C:\Program Files\HerondLabs\Herond-Browser\Application\herond.exe" --private_key="C:\herond-filter-list\keys\private.pem" --publisher_key="C:\herond-filter-list\keys\publisher_key.pem"`
+`npm run build -- --executable_herond="C:\Program Files\HerondLabs\Herond-Browser\Application\herond.exe" --private_key="C:\herond-filter-list\keys\private.pem" --publisher_key="C:\herond-filter-list\keys\publisher_key.pem" --version="1.0.1"`
 
 Output CRX file will be created at `herond-filter-list\build\<extension-componentid>` folder
 
