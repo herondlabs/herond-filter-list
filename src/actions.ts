@@ -1,7 +1,8 @@
-import {s3Bucket, s3Path, herondListComponentId} from "./constants.ts";
+import {s3Bucket, s3Path, herondListComponentId, outputPath} from "./constants.ts";
 import Log from './lib/logging.ts'
 import processUtils from './lib/processUtils.ts'
-import * as process from "process";
+import * as process from "process"
+import path from 'path'
 
 async function checkVersion(options: any = {}) {
   Log.progress(`Check extension version`)
@@ -26,12 +27,9 @@ async function checkVersion(options: any = {}) {
 async function upload(options: any = {}) {
   Log.progress(`Upload extension to S3`)
 
-  // const s3Key = `${s3Path}/${herondListComponentId}/extension_${options.version.replace(/\./g, '_')}.crx`
-  // const rs = processUtils.run('aws', ['s3api', 'head-object', '--bucket', s3Bucket, '--key', s3Key], {continueOnFail: true})
-  // if (rs.status == 0) {
-  //   Log.error(`Extension version ${options.version} is already exist.`)
-  //   process.exit(1)
-  // }
+  const filePath = path.resolve(outputPath, `extension_${options.version.replace(/\./g, '_')}.crx`)
+  const s3Key = `s3://${s3Bucket}/${s3Path}/${herondListComponentId}/extension_${options.version.replace(/\./g, '_')}.crx`
+  processUtils.run('aws', ['s3', 'cp', filePath, s3Key])
 }
 
 export default {

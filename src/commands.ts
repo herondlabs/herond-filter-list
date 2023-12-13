@@ -39,7 +39,7 @@ program
 
 program
     .command('upload')
-    // .requiredOption('-v, --version <target-version>', 'version to check')
+    .requiredOption('-v, --version <target-version>', 'version to check')
     .action(actions.upload)
 
 program
