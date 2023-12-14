@@ -42,7 +42,7 @@ async function updateDb(options:any = {}) {
   const publicURL = `https://${s3Bucket}.s3.amazonaws.com/${s3Path}/${herondListComponentId}/${extensionFileName}`
 
   // aws dynamodb update-item --table-name=herond-extensions-prod --key='{"ID": {"S": "test123"}}' --update-expression='SET Version = :v,Title = :t' --expression-attribute-values='{":v": {"S": "1.0.2"}, ":t": {"S": "test"}}'
-  const key = `{"ID": {"S": "${herondListComponentId}1"}}`
+  const key = `{"ID": {"S": "${herondListComponentId}"}}`
   const expression = 'SET Version=:v, #u=:u, SHA256=:s'
   const attributeNames = '{"#u": "URL"}'
   const values = `{":v": {"S": "${options.version}"}, ":u": {"S": "${publicURL}"}, ":s": {"S": "${hash}"}}`
