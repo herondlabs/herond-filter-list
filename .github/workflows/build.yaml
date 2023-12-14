@@ -2,11 +2,11 @@ name: "Build browser component"
 on:
   workflow_dispatch:
     inputs:
-      version:
+      desc:
+        description: "Ignore this"
         type: string
-        description: Version
-        required: true
-        default: 1.0.1
+  schedule:
+    - cron: '0 0 * * 5' # Every Friday at 00:00 UTC
 jobs:
   build:
     runs-on: windows-latest
@@ -19,12 +19,20 @@ jobs:
         uses: actions/setup-node@v4
       - name: Install dependencies
         run: npm install
+      - name: Increase version
+        env:
+          GH_TOKEN: ${{ secrets.HEROND_DEVOPS_PAT }}
+        run: gh variable set HEROND_LIST_VERSION_PATCH --body=$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))
+      - name: Set build version
+        id: build_ver
+        run: echo "version=${{ vars.HEROND_LIST_VERSION_MAJOR }}.${{ vars.HEROND_LIST_VERSION_MINOR }}.${{ vars.HEROND_LIST_VERSION_PATCH }}" >> $GITHUB_OUTPUT
+        shell: bash
       - name: Check version
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
-        run: npm run actions:check_version -- --version="${{ inputs.version }}" --type=1
+        run: npm run actions:check_version -- --version="${{ steps.build_ver.outputs.version }}"
       - name: Download browser tool
         run: curl -L -o browser.zip ${{ vars.BROWSER_ZIP_FILE_URL }}
         shell: bash
@@ -41,16 +49,16 @@ jobs:
         run: echo "$EXTENSION_KEY" | base64 --decode > herondlist.pem
         shell: bash
       - name: Build Herond List
-        run: npm run build -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem" --version="${{ inputs.version }}"
+        run: npm run build -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem" --version="${{ steps.build_ver.outputs.version }}"
       - name: Upload extension to S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
-        run: npm run actions:upload -- --version="${{ inputs.version }}"
+        run: npm run actions:upload -- --version="${{ steps.build_ver.outputs.version }}"
       - name: Update DB
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
-        run: npm run actions:update_db -- --version="${{ inputs.version }}"
+        run: npm run actions:update_db -- --version="${{ steps.build_ver.outputs.version }}"
