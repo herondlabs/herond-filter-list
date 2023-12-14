@@ -19,7 +19,8 @@
     "gen_crx": "ts-node --esm ./src/commands.ts generateCrx",
     "build": "ts-node --esm ./src/commands.ts buildHerondList",
     "actions:check_version": "ts-node --esm ./src/commands.ts checkVersion",
-    "actions:upload": "ts-node --esm ./src/commands.ts upload"
+    "actions:upload": "ts-node --esm ./src/commands.ts upload",
+    "actions:update_db": "ts-node --esm ./src/commands.ts updateDb"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4"

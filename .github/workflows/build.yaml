@@ -45,4 +45,4 @@ jobs:
       - name: Check output
         run: cd build && dir
       - name: Upload extension to S3
-        run: npm run actions:upload
+        run: npm run actions:upload -- --version="${{ inputs.version }}"

@@ -39,8 +39,13 @@ program
 
 program
     .command('upload')
-    // .requiredOption('-v, --version <target-version>', 'version to check')
+    .requiredOption('-v, --version <target-version>', 'version to check')
     .action(actions.upload)
+
+program
+    .command('update_db')
+    .requiredOption('-v, --version <target-version>', 'version to upload')
+    .action(actions.updateDb)
 
 program
   .parse(process.argv)

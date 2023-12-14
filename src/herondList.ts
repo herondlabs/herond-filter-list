@@ -12,7 +12,7 @@ async function buildHerondList(options: any = {}) {
 
     await generateFilterListFile({output_path: outputPath})
     await generateManifestFiles({output_path: outputPath, version: options.version})
-    await packExtension({
+    packExtension({
       executable_herond: options.executable_herond,
       extension_dir: path.join(process.cwd(), outputPath),
       private_key: options.private_key,
