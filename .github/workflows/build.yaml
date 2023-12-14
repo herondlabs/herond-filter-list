@@ -45,4 +45,14 @@ jobs:
       - name: Check output
         run: cd build && dir
       - name: Upload extension to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
+          AWS_DEFAULT_REGION: 'ap-southeast-1'
         run: npm run actions:upload -- --version="${{ inputs.version }}"
+      - name: Update DB
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
+          AWS_DEFAULT_REGION: 'ap-southeast-1'
+        run: npm run action:update_db -- --version="${{ inputs.version }}"
