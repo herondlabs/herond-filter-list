@@ -19,13 +19,9 @@ jobs:
         uses: actions/setup-node@v4
       - name: Install dependencies
         run: npm install
-      - name: Increase version
-        env:
-          GH_TOKEN: ${{ secrets.HEROND_DEVOPS_PAT }}
-        run: gh variable set HEROND_LIST_VERSION_PATCH --body=$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))
       - name: Set build version
         id: build_ver
-        run: echo "version=${{ vars.HEROND_LIST_VERSION_MAJOR }}.${{ vars.HEROND_LIST_VERSION_MINOR }}.${{ vars.HEROND_LIST_VERSION_PATCH }}" >> $GITHUB_OUTPUT
+        run: echo "version=${{ vars.HEROND_LIST_VERSION_MAJOR }}.${{ vars.HEROND_LIST_VERSION_MINOR }}.$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))" >> $GITHUB_OUTPUT
         shell: bash
       - name: Check version
         env:
@@ -62,3 +58,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
         run: npm run actions:update_db -- --version="${{ steps.build_ver.outputs.version }}"
+      - name: Increase version
+        env:
+          GH_TOKEN: ${{ secrets.HEROND_DEVOPS_PAT }}
+        run: gh variable set HEROND_LIST_VERSION_PATCH --body=$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))
