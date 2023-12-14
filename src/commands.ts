@@ -43,8 +43,8 @@ program
     .action(actions.upload)
 
 program
-    .command('updateDb')
-    .requiredOption('-v, --version <target-version>', 'version to check')
+    .command('update_db')
+    .requiredOption('-v, --version <target-version>', 'version to upload')
     .action(actions.updateDb)
 
 program

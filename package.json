@@ -20,7 +20,7 @@
     "build": "ts-node --esm ./src/commands.ts buildHerondList",
     "actions:check_version": "ts-node --esm ./src/commands.ts checkVersion",
     "actions:upload": "ts-node --esm ./src/commands.ts upload",
-    "actions:updateDb": "ts-node --esm ./src/commands.ts updateDb"
+    "actions:update_db": "ts-node --esm ./src/commands.ts updateDb"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4"

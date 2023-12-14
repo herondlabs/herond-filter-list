@@ -52,10 +52,15 @@ function generate256sha(file_path: string) {
     return crypto.createHash("sha256").update(content).digest("hex")
 }
 
+function buildExtensionFileName(version: string) {
+    return `extension_${version.replace(/\./g, '_')}.crx`
+}
+
 export default {
     generate256sha,
     writeFile,
     createDirectoryRecursive,
     mergeTextFiles,
-    createOutputDirectory
+    createOutputDirectory,
+    buildExtensionFileName
 }
