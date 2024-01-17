@@ -72,7 +72,7 @@ function packExtension(options: any = {}) {
     const args = [
       `--pack-extension="${options.extension_dir}"`,
       `--pack-extension-key="${options.private_key}"`,
-      `--brave-extension-publisher-key="${options.publisher_key}"`]
+      `--herond-extension-publisher-key="${options.publisher_key}"`]
     childProcess.execSync(`"${options.executable_herond}" ${args.join(' ')}`)
     const crxOutPath = options.extension_dir + '.crx'
     const hash = utils.generate256sha(crxOutPath)
