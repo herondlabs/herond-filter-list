@@ -25,7 +25,6 @@ jobs:
         run: echo "version=${{ vars.HEROND_LIST_VERSION_MAJOR }}.${{ vars.HEROND_LIST_VERSION_MINOR }}.$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))" >> $GITHUB_OUTPUT
         shell: bash
       - name: Check version
-        if: ${{ inputs.release == true }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
@@ -36,15 +35,6 @@ jobs:
         shell: bash
       - name: Unzip tool
         run: 7z x browser.zip -obrowser
-      - name: check output
-        run: ls
-        shell: bash
-      - name: check output 2
-        run: cd "${{ github.workspace }}\browser"
-        shell: bash
-      - name: check output 3
-        run: ls
-        shell: bash
       - name: Prepare publisher key
         env:
           PUBLISHER_KEY: ${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}
