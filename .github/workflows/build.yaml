@@ -38,9 +38,10 @@ jobs:
         run: 7z x browser.zip -obrowser
       - name: check output
         run: |
-          ls -al
+          ls
           cd "${{ github.workspace }}\browser"
-          ls -al
+          ls
+        shell: bash
       - name: Prepare publisher key
         env:
           PUBLISHER_KEY: ${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}
