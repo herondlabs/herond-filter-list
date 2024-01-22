@@ -2,9 +2,10 @@ name: "Build browser component"
 on:
   workflow_dispatch:
     inputs:
-      desc:
-        description: "Ignore this"
-        type: string
+      release:
+        description: "Release"
+        type: boolean
+        default: true
   schedule:
     - cron: '0 0 * * 5' # Every Friday at 00:00 UTC
 jobs:
@@ -47,18 +48,21 @@ jobs:
       - name: Build Herond List
         run: npm run build -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem" --version="${{ steps.build_ver.outputs.version }}"
       - name: Upload extension to S3
+        if: ${{ inputs.release == true }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
         run: npm run actions:upload -- --version="${{ steps.build_ver.outputs.version }}"
       - name: Update DB
+        if: ${{ inputs.release == true }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
         run: npm run actions:update_db -- --version="${{ steps.build_ver.outputs.version }}"
       - name: Increase version
+        if: ${{ inputs.release == true }}
         env:
           GH_TOKEN: ${{ secrets.HEROND_DEVOPS_PAT }}
         run: gh variable set HEROND_LIST_VERSION_PATCH --body=$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))
