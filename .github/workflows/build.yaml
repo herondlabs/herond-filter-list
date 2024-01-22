@@ -37,10 +37,13 @@ jobs:
       - name: Unzip tool
         run: 7z x browser.zip -obrowser
       - name: check output
-        run: |
-          ls
-          cd "${{ github.workspace }}\browser"
-          ls
+        run: ls
+        shell: bash
+      - name: check output 2
+        run: cd "${{ github.workspace }}\browser"
+        shell: bash
+      - name: check output 3
+        run: ls
         shell: bash
       - name: Prepare publisher key
         env:
