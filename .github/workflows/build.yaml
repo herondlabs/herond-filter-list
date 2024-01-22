@@ -41,7 +41,6 @@ jobs:
           ls -al
           cd "${{ github.workspace }}\browser"
           ls -al
-      - name:
       - name: Prepare publisher key
         env:
           PUBLISHER_KEY: ${{ secrets.HEROND_EXTENSION_PUBLISHER_KEY }}
