@@ -45,6 +45,10 @@ jobs:
           EXTENSION_KEY: ${{ secrets.HEROND_FILTER_LIST_KEY }}
         run: echo "$EXTENSION_KEY" | base64 --decode > herondlist.pem
         shell: bash
+      - name: Get event_name
+        run: echo "Event name ${{ github.event_name }}"
+      - name: Get input
+        run: echo "Input value ${{ inputs.release }}"
       - name: Fetch filter list
         env: 
           HEROND_LIST_URL: ${{vars.HEROND_LIST_URL}}   
