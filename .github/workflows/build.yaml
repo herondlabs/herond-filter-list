@@ -45,10 +45,6 @@ jobs:
           EXTENSION_KEY: ${{ secrets.HEROND_FILTER_LIST_KEY }}
         run: echo "$EXTENSION_KEY" | base64 --decode > herondlist.pem
         shell: bash
-      - name: Get event_name
-        run: echo "Event name ${{ github.event_name }}"
-      - name: Get input
-        run: echo "Input value ${{ inputs.release }}"
       - name: Fetch filter list
         env: 
           HEROND_LIST_URL: ${{vars.HEROND_LIST_URL}}   
@@ -58,26 +54,26 @@ jobs:
       - name: Build Herond List
         run: npm run build -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem" --version="${{ steps.build_ver.outputs.version }}"
       - name: Upload extension to S3
-        if: ${{ inputs.release == true }} || github.event_name == 'schedule'
+        if: ${{ inputs.release == true }} || ${{ github.event_name == 'schedule' }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
         run: npm run actions:upload -- --version="${{ steps.build_ver.outputs.version }}"
       - name: Update DB
-        if: ${{ inputs.release == true }} || github.event_name == 'schedule'
+        if: ${{ inputs.release == true }} || ${{ github.event_name == 'schedule' }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.HEROND_EXTENSION_AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.HEROND_EXTENSION_AWS_SECRET_KEY }}
           AWS_DEFAULT_REGION: 'ap-southeast-1'
         run: npm run actions:update_db -- --version="${{ steps.build_ver.outputs.version }}"
       - name: Increase version
-        if: ${{ inputs.release == true }} || github.event_name == 'schedule'
+        if: ${{ inputs.release == true }} || ${{ github.event_name == 'schedule' }} 
         env:
           GH_TOKEN: ${{ secrets.HEROND_DEVOPS_PAT }}
         run: gh variable set HEROND_LIST_VERSION_PATCH --body=$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))
       - name: Commit change
-        if: ${{ inputs.release == true }} || github.event_name == 'schedule'
+        if: ${{ inputs.release == true }} || ${{ github.event_name == 'schedule' }}
         run: |
           git config --local user.name github-actions
           git config --local user.email github-actions@github.com
