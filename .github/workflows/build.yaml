@@ -45,6 +45,12 @@ jobs:
           EXTENSION_KEY: ${{ secrets.HEROND_FILTER_LIST_KEY }}
         run: echo "$EXTENSION_KEY" | base64 --decode > herondlist.pem
         shell: bash
+      - name: Fetch filter list
+        env: 
+          STORAGE_URL: ${{vars.HEROND_LIST_URL}}   
+        run: |
+          curl -O ${{env.STORAGE_URL}}/adblock/herond_list.txt
+          mv -f herond_list.txt ./filter
       - name: Build Herond List
         run: npm run build -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem" --version="${{ steps.build_ver.outputs.version }}"
       - name: Upload extension to S3
@@ -66,3 +72,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.HEROND_DEVOPS_PAT }}
         run: gh variable set HEROND_LIST_VERSION_PATCH --body=$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))
+      - name: Commit change
+        if: ${{ inputs.release == true }} || github.event_name == 'schedule'
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email github-actions@github.com
+          git add ./filter/herond_list.txt
+          git commit -m "Update filter list"
+          git push
