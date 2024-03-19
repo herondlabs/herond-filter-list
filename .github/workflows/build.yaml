@@ -50,7 +50,7 @@ jobs:
           STORAGE_URL: ${{vars.HEROND_LIST_URL}}   
         run: |
           curl -O ${{env.STORAGE_URL}}/adblock/herond_list.txt
-          mv -f herond_list.txt ./filter
+          mv herond_list.txt ./filter
       - name: Build Herond List
         run: npm run build -- --executable_herond="${{ github.workspace }}\browser\herond.exe" --private_key="${{ github.workspace }}\herondlist.pem" --publisher_key="${{ github.workspace }}\publisher.pem" --version="${{ steps.build_ver.outputs.version }}"
       - name: Upload extension to S3
