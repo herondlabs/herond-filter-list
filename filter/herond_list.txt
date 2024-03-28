@@ -54,3 +54,5 @@ embed.vietnamnet.vn##.fb-notification-main
 chuyendoiso.mic.gov.vn##.fb-notification-main
 vietnamnet.vn##.fb-notification-main
 baomoi.com##div:has(> div > div.z2-mKt-zone)
+www.fshare.vn##[src*="https://storage.fshare.vn/images/shopee-voucher_300x250.png"]
+www.fshare.vn##[src*="https://storage.fshare.vn/images/CTKMT3_ShopeePay_300x250.gif"]
