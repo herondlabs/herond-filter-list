@@ -13,13 +13,13 @@
     "typescript": "^5.3.3"
   },
   "scripts": {
-    "gen_filter_file": "ts-node --esm ./src/commands.ts generateFilterList",
-    "gen_manifest": "ts-node --esm ./src/commands.ts generateManifest",
-    "gen_crx": "ts-node --esm ./src/commands.ts generateCrx",
-    "build": "ts-node --esm ./src/commands.ts buildHerondList",
-    "actions:check_version": "ts-node --esm ./src/commands.ts checkVersion",
-    "actions:upload": "ts-node --esm ./src/commands.ts upload",
-    "actions:update_db": "ts-node --esm ./src/commands.ts updateDb"
+    "gen_filter_file": "npx ts-node --esm ./src/commands.ts generateFilterList",
+    "gen_manifest": "npx ts-node --esm ./src/commands.ts generateManifest",
+    "gen_crx": "npx ts-node --esm ./src/commands.ts generateCrx",
+    "build": "npx ts-node --esm ./src/commands.ts buildHerondList",
+    "actions:check_version": "npx ts-node --esm ./src/commands.ts checkVersion",
+    "actions:upload": "npx ts-node --esm ./src/commands.ts upload",
+    "actions:update_db": "npx ts-node --esm ./src/commands.ts updateDb"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4"

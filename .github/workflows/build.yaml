@@ -19,7 +19,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
       - name: Install dependencies
-        run: npm install
+        run: yarn --frozen-lockfile
       - name: Set build version
         id: build_ver
         run: echo "version=${{ vars.HEROND_LIST_VERSION_MAJOR }}.${{ vars.HEROND_LIST_VERSION_MINOR }}.$((${{ vars.HEROND_LIST_VERSION_PATCH }}+1))" >> $GITHUB_OUTPUT
