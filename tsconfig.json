@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "ES2020",
+    "module": "es6",
     "target": "es6",
     "strict": true,
     "esModuleInterop": true,
@@ -20,9 +20,6 @@
       ]
     },
     "lib": ["ES2021"]
-  },
-  "ts-node": {
-    "esm": true
   },
   "include": ["src/**/*"],
   "exclude": [
