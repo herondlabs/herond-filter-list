@@ -63,6 +63,7 @@ magpicturesinternational.com##div#quangcaopc
 magpicturesinternational.com##div:has(> a.closebtn) 
 magpicturesinternational.com##a.aHrefAff 
 magpicturesinternational.com##a[href="https://354932.com"]
+||bongdadem.net/videos*
 ! Block sponsor images
 -120-600.
 -120_600_
