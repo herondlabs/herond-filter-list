@@ -54,15 +54,15 @@ embed.vietnamnet.vn##.fb-notification-main
 chuyendoiso.mic.gov.vn##.fb-notification-main
 vietnamnet.vn##.fb-notification-main
 baomoi.com##div:has(> div > div.z2-mKt-zone)
-cakhiam4.live##[src*="https://widgets.thesports01.com"] 
-cakhiam4.live##._1cb._1u9t 
-cakhiam4.live##.marquee-container 
-cakhiam4.live##.col-12.p-0 > p.mb-1:nth-of-type(1) > [href*="https://354932.com"] > .img-fluid 
-cakhiam4.live##img.img-fluid[alt="8XBET"] 
-cakhiam4.live##div#quangcaopc 
-cakhiam4.live##div:has(> a.closebtn) 
-cakhiam4.live##a.aHrefAff 
-cakhiam4.live##a[href="https://354932.com"]
+magpicturesinternational.com##[src*="https://widgets.thesports01.com"] 
+magpicturesinternational.com##._1cb._1u9t 
+magpicturesinternational.com##.marquee-container 
+magpicturesinternational.com##.col-12.p-0 > p.mb-1:nth-of-type(1) > [href*="https://354932.com"] > .img-fluid 
+magpicturesinternational.com##img.img-fluid[alt="8XBET"] 
+magpicturesinternational.com##div#quangcaopc 
+magpicturesinternational.com##div:has(> a.closebtn) 
+magpicturesinternational.com##a.aHrefAff 
+magpicturesinternational.com##a[href="https://354932.com"]
 ! Block sponsor images
 -120-600.
 -120_600_
