@@ -64,6 +64,9 @@ magpicturesinternational.com##div:has(> a.closebtn)
 magpicturesinternational.com##a.aHrefAff 
 magpicturesinternational.com##a[href="https://354932.com"]
 ||bongdadem.net/videos*
+phimmoiiii.net##.module_home_ads
+phimmoiiii.net###floating_ads_bottom_textcss_container
+phimmoiiii.net##.module_single_ads
 ! Block sponsor images
 -120-600.
 -120_600_
